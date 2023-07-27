@@ -31,7 +31,7 @@ void setup() {
   Serial.begin(115200);
 
   pinMode(ANEMOMETER_PIN, INPUT);
-  attachInterrupt(ANEMOMETER_PIN, countAnemometer, FALLING);
+  attachInterrupt(ANEMOMETER_PIN, countAnemometer, RISING);
 }
 
 void loop() {
