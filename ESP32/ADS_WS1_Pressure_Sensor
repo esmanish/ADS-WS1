@@ -1,0 +1,30 @@
+#include <Wire.h>
+#include <Adafruit_BMP280.h>
+
+// I2C address of the BMP280 sensor
+#define BMP280_ADDRESS 0x76
+
+Adafruit_BMP280 bmp; // Create a BMP280 sensor object
+
+void setup() {
+  Serial.begin(115200);
+  Wire.begin(0X76);
+
+  if (!bmp.begin(BMP280_ADDRESS)) {
+    Serial.println("Could not find a valid BMP280 sensor, check wiring!");
+    while (1);
+  }
+}
+
+void loop() {
+  float pressure_hPa = bmp.readPressure() / 100.0;
+  float pressure_mbar = pressure_hPa; // 1 hPa is equivalent to 1 mbar
+
+  Serial.print("Pressure: ");
+  Serial.print(pressure_hPa);
+  Serial.print(" hPa / ");
+  Serial.print(pressure_mbar);
+  Serial.println(" mbar");
+
+  delay(1000); // Delay between readings, adjust as needed
+}
